@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "description": "A simple template for projects using the Concrete framework",
   "main": "index.js",
-  "repository": "https://github.com/therealbytes/concrete-template",
+  "repository": "https://github.com/concrete-eth/concrete-template",
   "author": "The concrete-geth authors",
   "license": "MIT",
   "private": true,
   "scripts": {
     "prepare": "yarn build:sol",
     "build:sol": "forge build && cp out/Counter.sol/Counter.json engine/pcs/abi",
-    "build:docker": "docker build -t ghcr.io/therealbytes/concrete-template-geth:v0.0.1 .",
+    "build:docker": "docker build -t ghcr.io/concrete-eth/concrete-template-geth:v0.0.1 .",
     "test": "yarn build:sol && yarn test:go",
     "test:go": "go test -v ./... || true"
   },
