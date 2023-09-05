@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "prepare": "yarn build:sol",
-    "build:sol": "forge build && cp out/Counter.sol/Counter.json engine/pcs/abi",
+    "build:sol": "forge build && cp out/ICounter.sol/ICounter.json engine/pcs/abi",
     "build:docker": "docker build -t ghcr.io/concrete-eth/concrete-template-geth:v0.0.1 .",
     "test": "yarn build:sol && yarn test:go",
     "test:go": "go test -v ./... || true"
