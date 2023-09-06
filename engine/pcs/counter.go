@@ -28,7 +28,7 @@ import (
 	"github.com/ethereum/go-ethereum/concrete/utils"
 )
 
-//go:embed abi/Counter.json
+//go:embed abi/ICounter.json
 var counterAbiJson []byte
 
 var CounterABI abi.ABI

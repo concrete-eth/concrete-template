@@ -8,11 +8,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "prepare": "yarn build:sol",
+    "prepare": "yarn build:sol && yarn codegen",
     "build:sol": "forge build && cp out/ICounter.sol/ICounter.json engine/pcs/abi",
     "build:docker": "docker build -t ghcr.io/concrete-eth/concrete-template-geth:v0.0.1 .",
     "test": "yarn build:sol && yarn test:go",
-    "test:go": "go test -v ./... || true"
+    "test:go": "go test -v ./... || true",
+    "codegen": "yarn codegen:sol",
+    "codegen:sol": "concrete solgen --address 0x80 --abi ./out/ICounter.sol/ICounter.json --solidity ./sol/ICounter.sol --out ./sol/codegen --name CounterPrecompile"
   },
   "devDependencies": {
     "forge-std": "https://github.com/foundry-rs/forge-std.git#b4f121555729b3afb3c5ffccb62ff4b6e2818fd3"
