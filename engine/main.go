@@ -9,7 +9,7 @@ import (
 
 func setup(engine concrete.ConcreteApp) {
 	addr := common.HexToAddress("0x80")
-	pc := &pcs.CounterPC{}
+	pc := &pcs.PositionPrecompile{}
 	engine.AddPrecompile(addr, pc)
 }
 

@@ -2,8 +2,6 @@ module github.com/concrete-eth/concrete-template
 
 go 1.19
 
-replace github.com/ethereum/go-ethereum => github.com/concrete-eth/concrete-geth v0.0.0-20230903134749-980c9e2907f5
-
 require (
 	github.com/ethereum/go-ethereum v1.10.26
 	github.com/stretchr/testify v1.8.4
@@ -108,3 +106,5 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	rsc.io/tmplfunc v0.0.3 // indirect
 )
+
+replace github.com/ethereum/go-ethereum => github.com/concrete-eth/concrete-geth v0.0.0-20230907160809-d60483e77255

@@ -20,47 +20,51 @@ import (
 	"encoding/json"
 	"math/big"
 
+	datamod "github.com/concrete-eth/concrete-template/engine/pcs/codegen"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/concrete/api"
-	"github.com/ethereum/go-ethereum/concrete/crypto"
 	"github.com/ethereum/go-ethereum/concrete/lib"
 	"github.com/ethereum/go-ethereum/concrete/precompiles"
 	"github.com/ethereum/go-ethereum/concrete/utils"
 )
 
-//go:embed abi/ICounter.json
-var counterAbiJson []byte
+//go:embed abi/Position.json
+var positionAbiJson []byte
 
-var CounterABI abi.ABI
-var CounterStorageKey = crypto.Keccak256([]byte("counter"))
+var PositionABI abi.ABI
+
+type Coord = struct {
+	X int32 "json:\"x\""
+	Y int32 "json:\"y\""
+}
 
 func init() {
 	var jsonAbi struct {
 		ABI abi.ABI `json:"abi"`
 	}
-	err := json.Unmarshal(counterAbiJson, &jsonAbi)
+	err := json.Unmarshal(positionAbiJson, &jsonAbi)
 	if err != nil {
 		panic(err)
 	}
-	CounterABI = jsonAbi.ABI
+	PositionABI = jsonAbi.ABI
 }
 
-type CounterPC struct {
+type PositionPrecompile struct {
 	lib.BlankPrecompile
 }
 
-func (p *CounterPC) IsStatic(input []byte) bool {
+func (p *PositionPrecompile) IsStatic(input []byte) bool {
 	methodID, _ := utils.SplitInput(input)
-	method, err := CounterABI.MethodById(methodID)
+	method, err := PositionABI.MethodById(methodID)
 	if err != nil {
 		return false
 	}
 	return method.IsConstant()
 }
 
-func (p *CounterPC) Run(env api.Environment, input []byte) ([]byte, error) {
+func (p *PositionPrecompile) Run(env api.Environment, input []byte) ([]byte, error) {
 	methodID, data := utils.SplitInput(input)
-	method, err := CounterABI.MethodById(methodID)
+	method, err := PositionABI.MethodById(methodID)
 	if err != nil {
 		return nil, precompiles.ErrMethodNotFound
 	}
@@ -69,25 +73,25 @@ func (p *CounterPC) Run(env api.Environment, input []byte) ([]byte, error) {
 		return nil, precompiles.ErrInvalidInput
 	}
 
-	counterValue := lib.NewDatastore(env).Value(CounterStorageKey)
+	datastore := lib.NewDatastore(env)
+	positionMapping := datamod.NewPosition(datastore)
 
 	result, err := func() ([]interface{}, error) {
 		switch method.Name {
 
-		case "number":
-			value := counterValue.Big()
-			return []interface{}{value}, nil
-
-		case "setNumber":
-			newValue := args[0].(*big.Int)
-			counterValue.SetBig(newValue)
+		case "setPosition":
+			entity := args[0].(*big.Int)
+			coord := args[1].(Coord)
+			position := positionMapping.Get(entity)
+			// position.Set(coord.X, coord.Y)
+			position.Set(coord.X, coord.Y)
 			return nil, nil
 
-		case "increment":
-			currentValue := counterValue.Big()
-			incValue := new(big.Int).Add(currentValue, big.NewInt(1))
-			counterValue.SetBig(incValue)
-			return nil, nil
+		case "getPosition":
+			entity := args[0].(*big.Int)
+			position := positionMapping.Get(entity)
+			coord := Coord{position.GetX(), position.GetY()}
+			return []interface{}{coord}, nil
 
 		default:
 			return nil, precompiles.ErrMethodNotFound
@@ -98,16 +102,16 @@ func (p *CounterPC) Run(env api.Environment, input []byte) ([]byte, error) {
 		return nil, err
 	}
 
+	var output []byte
 	if len(method.Outputs) == 0 {
-
-		return method.Outputs.Pack()
+		output, err = method.Outputs.Pack()
+	} else {
+		output, err = method.Outputs.Pack(result...)
 	}
-
-	output, err := method.Outputs.Pack(result...)
 	if err != nil {
 		panic(err) // This will only panic if there is a bug in the precompile
 	}
 	return output, nil
 }
 
-var _ precompiles.Precompile = (*CounterPC)(nil)
+var _ precompiles.Precompile = (*PositionPrecompile)(nil)

@@ -1,4 +1,16 @@
+# forge
 cache
 out
+
+# node
 node_modules
+
+# abi
 engine/pcs/abi
+
+# codegen
+engine/pcs/codegen
+sol/codegen
+
+# version
+.version

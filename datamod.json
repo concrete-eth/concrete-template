@@ -1,0 +1,11 @@
+{
+    "position": {
+        "keySchema": {
+            "entity": "uint"
+        },
+        "schema": {
+            "x": "int32",
+            "y": "int32"
+        }
+    }
+}
