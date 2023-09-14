@@ -10,7 +10,7 @@
   "scripts": {
     "prepare": "yarn build:sol && yarn codegen",
     "build:sol": "forge build && cp out/Position.sol/Position.json engine/pcs/abi",
-    "build:docker": "docker build -t ghcr.io/concrete-eth/concrete-template-geth:v0.0.1 .",
+    "build:docker": "docker build -t ghcr.io/concrete-eth/concrete-template-geth:latest .",
     "test": "yarn prepare && yarn test:go",
     "test:go": "go test -v ./... || true",
     "codegen": "yarn codegen:sol && yarn codegen:go",
