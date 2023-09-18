@@ -18,18 +18,24 @@ package pcs
 import (
 	_ "embed"
 	"encoding/json"
+	"errors"
 	"math/big"
 
 	datamod "github.com/concrete-eth/concrete-template/engine/pcs/codegen"
 	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/concrete"
 	"github.com/ethereum/go-ethereum/concrete/api"
 	"github.com/ethereum/go-ethereum/concrete/lib"
-	"github.com/ethereum/go-ethereum/concrete/precompiles"
 	"github.com/ethereum/go-ethereum/concrete/utils"
 )
 
 //go:embed abi/Position.json
 var positionAbiJson []byte
+
+var (
+	ErrMethodNotFound = errors.New("method not found")
+	ErrInvalidInput   = errors.New("invalid input")
+)
 
 var PositionABI abi.ABI
 
@@ -66,11 +72,11 @@ func (p *PositionPrecompile) Run(env api.Environment, input []byte) ([]byte, err
 	methodID, data := utils.SplitInput(input)
 	method, err := PositionABI.MethodById(methodID)
 	if err != nil {
-		return nil, precompiles.ErrMethodNotFound
+		return nil, ErrMethodNotFound
 	}
 	args, err := method.Inputs.Unpack(data)
 	if err != nil {
-		return nil, precompiles.ErrInvalidInput
+		return nil, ErrInvalidInput
 	}
 
 	datastore := lib.NewDatastore(env)
@@ -94,7 +100,7 @@ func (p *PositionPrecompile) Run(env api.Environment, input []byte) ([]byte, err
 			return []interface{}{coord}, nil
 
 		default:
-			return nil, precompiles.ErrMethodNotFound
+			return nil, ErrMethodNotFound
 		}
 	}()
 
@@ -114,4 +120,4 @@ func (p *PositionPrecompile) Run(env api.Environment, input []byte) ([]byte, err
 	return output, nil
 }
 
-var _ precompiles.Precompile = (*PositionPrecompile)(nil)
+var _ concrete.Precompile = (*PositionPrecompile)(nil)
