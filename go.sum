@@ -43,8 +43,8 @@ github.com/cockroachdb/pebble v0.0.0-20230209160836-829675f94811/go.mod h1:Nb5lg
 github.com/cockroachdb/redact v1.1.3 h1:AKZds10rFSIj7qADf0g46UixK8NNLwWTNdCIGS5wfSQ=
 github.com/cockroachdb/redact v1.1.3/go.mod h1:BVNblN9mBWFyMyqK1k3AAiSxhvhfK2oOZZ2lK+dpvRg=
 github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0/go.mod h1:4Zcjuz89kmFXt9morQgcfYZAYZ5n8WHjt81YYWIwtTM=
-github.com/concrete-eth/concrete-geth v0.0.0-20230919082922-9ec06660bec3 h1:cJtDy25gqfJEeE4hAN3Mw7RctawGkTD4Gw5t4iwFU/s=
-github.com/concrete-eth/concrete-geth v0.0.0-20230919082922-9ec06660bec3/go.mod h1:VSOQ7qzvJgVDJIkxJf1QaEK/lqIjA2xj9V+9j4l393k=
+github.com/concrete-eth/concrete-geth v0.0.0-20230927102252-452f24e30d5d h1:/y3xNOOz7408PkHhVjt4YgnkX1iUhtOZhNiR++RcE+s=
+github.com/concrete-eth/concrete-geth v0.0.0-20230927102252-452f24e30d5d/go.mod h1:VSOQ7qzvJgVDJIkxJf1QaEK/lqIjA2xj9V+9j4l393k=
 github.com/consensys/bavard v0.1.13 h1:oLhMLOFGTLdlda/kma4VOJazblc7IM5y5QPd2A/YjhQ=
 github.com/consensys/bavard v0.1.13/go.mod h1:9ItSMtA/dXMAiL7BG6bqW2m3NdSEObYWoH223nGHukI=
 github.com/consensys/gnark-crypto v0.10.0 h1:zRh22SR7o4K35SoNqouS9J/TKHTyU2QWaj5ldehyXtA=
