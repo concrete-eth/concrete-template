@@ -14,7 +14,7 @@ import (
 func newRegistry() concrete.PrecompileRegistry {
 	var (
 		addr  = common.HexToAddress("0x80")
-		pc    = &pcs.PositionPrecompile{}
+		pc    = &pcs.CounterPrecompile{}
 		block = uint64(0)
 	)
 	registry := concrete.NewRegistry()
