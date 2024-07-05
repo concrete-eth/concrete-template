@@ -10,12 +10,24 @@ A simple template for an application-specific rollup built with the [Concrete fr
 - Foundry for compiling Solidity contracts
 - Docker and Docker Compose for running a devnet
 
+Installing the concrete CLI:
+
+Clone the concrete github repo and install the CLI
+
+```
+https://github.com/concrete-eth/concrete-geth
+cd concrete-geth
+go install ./concrete/cmd/concrete
+```
+
 ## Getting started
 
 ```bash
-yarn
+yarn install
 yarn test
 ```
+
+To get familiar with how concrete works, see [Quickstart.md](Quickstart.md).
 
 ## Running a devnet
 
