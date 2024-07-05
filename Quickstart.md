@@ -120,7 +120,7 @@ Sweet!
 
 We have added a multiply method to a concrete stateful precompile written in Go and tested it end-to-end with a Solidity test.
 
-Checkout the `quickstart` branch to see all the changes we made in this tutorial.
+Checkout the [quickstart](https://github.com/concrete-eth/concrete-template/tree/quickstart) branch to see all the changes we made in this tutorial.
 
 ### Extra: What is CounterPrecompile.sol for?
 
