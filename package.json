@@ -9,16 +9,12 @@
   "private": true,
   "scripts": {
     "prepare": "yarn build:sol && yarn codegen",
-    "build:sol": "forge build && cp out/Position.sol/Position.json engine/pcs/abi",
+    "build:sol": "forge build && cp out/ICounter.sol/ICounter.abi.json engine/ICounter.abi.json",
     "build:docker": "docker build -t ghcr.io/concrete-eth/concrete-template-geth:latest .",
     "test": "yarn prepare && yarn test:go",
     "test:go": "go test -v ./... || true",
-    "codegen": "yarn codegen:sol && yarn codegen:go",
-    "codegen:sol": "concrete solgen --address 0x80 --abi ./out/Position.sol/Position.json --solidity ./sol/Position.sol --out ./sol/codegen --name PositionPrecompile",
-    "codegen:go": "concrete datamod ./datamod.json --pkg datamod --out engine/pcs/codegen",
-    "concrete:upgrade": "go list -m -versions -json github.com/concrete-eth/concrete-geth@latest | jq -r '.Version' > .version && yarn concrete:unlink",
-    "concrete:link:sibling": "go list -m -json github.com/ethereum/go-ethereum | jq -r '.Replace.Version' > .version && ABS_PATH=$(realpath ../concrete-geth) && go mod edit -replace github.com/ethereum/go-ethereum=$ABS_PATH && go mod tidy",
-    "concrete:unlink": "VERSION=$(cat .version) && go mod edit -replace github.com/ethereum/go-ethereum=github.com/concrete-eth/concrete-geth@$VERSION && go mod tidy"
+    "codegen": "yarn codegen:sol",
+    "codegen:sol": "concrete solgen --address 0x80 --abi ./out/ICounter.sol/ICounter.json --import ./sol/ICounter.sol --out ./sol --name CounterPrecompile"
   },
   "devDependencies": {
     "forge-std": "https://github.com/foundry-rs/forge-std.git#b4f121555729b3afb3c5ffccb62ff4b6e2818fd3"

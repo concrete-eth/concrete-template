@@ -2,5 +2,6 @@
 src = 'sol'
 out = 'out'
 libs = ['node_modules']
+extra_output_files = ['abi']
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config

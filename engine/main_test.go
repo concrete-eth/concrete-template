@@ -8,11 +8,8 @@ import (
 
 func TestE2E(t *testing.T) {
 	registry := newRegistry()
-	_, fails := testtool.Test(registry, testtool.TestConfig{
-		TestDir: "../sol/test",
-		OutDir:  "../out",
+	testtool.Test(t, registry, testtool.TestConfig{
+		Contract: "../sol/TestCounter.sol:CounterTest",
+		OutDir:   "../out",
 	})
-	if fails > 0 {
-		t.Errorf("TestE2E failed with %d failures", fails)
-	}
 }
