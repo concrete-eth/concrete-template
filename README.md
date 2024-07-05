@@ -12,7 +12,7 @@ A simple template for an application-specific rollup built with the [Concrete fr
 
 Installing the concrete CLI:
 
-Clone the concrete github repo and install the CLI
+Clone the concrete github repository and install the CLI
 
 ```
 https://github.com/concrete-eth/concrete-geth
@@ -36,7 +36,7 @@ Run a normal Optimism Bedrock devnet replacing op-geth for `ghcr.io/concrete-eth
 Alternatively, clone and run an already modified version of Bedrock:
 
 ```bash
-# Clone repo
+# Clone repository
 git clone -b concrete-template https://github.com/concrete-eth/optimism.git
 cd optimism
 # Start devnet
