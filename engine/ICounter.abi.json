@@ -8,6 +8,19 @@
   },
   {
     "type": "function",
+    "name": "multiply",
+    "inputs": [
+      {
+        "name": "m",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "number",
     "inputs": [],
     "outputs": [

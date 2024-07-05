@@ -8,6 +8,20 @@ import "./ICounter.sol";
 library CounterPrecompile {
     address constant precompileAddress = address(0x0000000000000000000000000000000000000080);
 
+    function increment() internal {
+        (bool success, ) = precompileAddress.call(
+            abi.encodeWithSignature("increment()")
+        );
+        require(success);
+    }
+
+    function multiply(uint256 m) internal {
+        (bool success, ) = precompileAddress.call(
+            abi.encodeWithSignature("multiply(uint256)", m)
+        );
+        require(success);
+    }
+
     function number() internal view returns (uint256) {
         (bool success, bytes memory data) = precompileAddress.staticcall(
             abi.encodeWithSignature("number()")
@@ -19,13 +33,6 @@ library CounterPrecompile {
     function setNumber(uint256 x) internal {
         (bool success, ) = precompileAddress.call(
             abi.encodeWithSignature("setNumber(uint256)", x)
-        );
-        require(success);
-    }
-
-    function increment() internal {
-        (bool success, ) = precompileAddress.call(
-            abi.encodeWithSignature("increment()")
         );
         require(success);
     }

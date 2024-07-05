@@ -5,4 +5,5 @@ interface ICounter {
     function number() external view returns (uint256);
     function setNumber(uint256 x) external;
     function increment() external;
+    function multiply(uint256 m) external; // add this
 }

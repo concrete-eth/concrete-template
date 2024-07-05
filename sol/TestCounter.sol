@@ -15,4 +15,10 @@ contract CounterTest {
         CounterPrecompile.increment();
         require(CounterPrecompile.number() == 1, "number is not 1");
     }
+
+    function testMultiply() public {
+        CounterPrecompile.setNumber(2);
+        CounterPrecompile.multiply(3);
+        require(CounterPrecompile.number() == 6, "number is not 6");
+    }
 }

@@ -58,6 +58,17 @@ func (c *Counter) Run(API api.Environment, input []byte) ([]byte, error) {
 		numberUint254.Add(numberUint254, new(uint256.Int).SetUint64(1))
 		number.SetUint256(numberUint254)
 		return nil, nil
+	case "multiply":
+		// Read the input as a uint256
+		multiplier := new(uint256.Int).SetBytes(data)
+		// Load the current number
+		numberUint254 := number.Uint256()
+		// Multiply the number by the multiplier
+		numberUint254.Mul(numberUint254, multiplier)
+		// Store the new number
+		number.SetUint256(numberUint254)
+		// Return nothing
+		return nil, nil
 	}
 
 	return nil, fmt.Errorf("method not found")
